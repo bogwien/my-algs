@@ -41,6 +41,10 @@ export default {
       sketch.scale(1, -1);
     },
     mouseClicked(sketch, e) {
+      if (e.target?.id !== sketch.canvas?.id) {
+        return;
+      }
+
       this.pointList.push(new Vector(e.offsetX, e.offsetY));
 
       if (this.pointList.length > 2) {

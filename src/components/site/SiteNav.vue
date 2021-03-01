@@ -21,6 +21,14 @@
 
           <v-list-item-title>Super Triangle</v-list-item-title>
         </v-list-item>
+
+        <v-list-item :to="{name: 'CircumscribedCircle'}" exact>
+          <v-list-item-icon>
+            <v-icon>mdi-circle-outline</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-title>Circumscribed Circle</v-list-item-title>
+        </v-list-item>
       </v-list-item-group>
     </v-list>
   </v-navigation-drawer>

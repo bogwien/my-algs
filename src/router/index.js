@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
 import SuperTriangle from '@/views/SuperTriangle.vue';
+import CircumscribedCircle from '@/views/CircumscribedCircle.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/super-triangle',
     name: 'SuperTriangle',
     component: SuperTriangle,
+  },
+  {
+    path: '/circumscribed-circle',
+    name: 'CircumscribedCircle',
+    component: CircumscribedCircle,
   },
 ];
 
