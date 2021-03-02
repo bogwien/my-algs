@@ -30,12 +30,12 @@
           <v-list-item-title>Circumscribed Circle</v-list-item-title>
         </v-list-item>
 
-        <v-list-item :to="{name: 'BowyerWatsonDelaunayTriangulation'}" exact>
+        <v-list-item :to="{name: 'DelaunayTriangulation'}" exact>
           <v-list-item-icon>
             <v-icon>mdi-vector-triangle</v-icon>
           </v-list-item-icon>
 
-          <v-list-item-title>Bowyer-Watson Delaunay Triangulation</v-list-item-title>
+          <v-list-item-title>Delaunay Triangulation</v-list-item-title>
         </v-list-item>
       </v-list-item-group>
     </v-list>

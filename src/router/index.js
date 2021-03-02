@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '@/views/Home.vue';
 import SuperTriangle from '@/views/SuperTriangle.vue';
 import CircumscribedCircle from '@/views/CircumscribedCircle.vue';
-import BowyerWatsonDelaunayTriangulation from '@/views/BowyerWatsonDelaunayTriangulation.vue';
+import DelaunayTriangulation from '@/views/DelaunayTriangulation.vue';
 
 Vue.use(VueRouter);
 
@@ -24,9 +24,9 @@ const routes = [
     component: CircumscribedCircle,
   },
   {
-    path: '/bowyer-watson-delaunay-triangulation',
-    name: 'BowyerWatsonDelaunayTriangulation',
-    component: BowyerWatsonDelaunayTriangulation,
+    path: '/delaunay-triangulation',
+    name: 'DelaunayTriangulation',
+    component: DelaunayTriangulation,
   },
 ];
 
