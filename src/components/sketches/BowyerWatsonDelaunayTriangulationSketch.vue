@@ -19,7 +19,7 @@ export default {
       frameRate: 30,
 
       pointList: new PointList(),
-      circles: [],
+      triangles: [],
     };
   },
   methods: {
@@ -33,7 +33,7 @@ export default {
       sketch.noStroke();
 
       this.drawPoints(sketch);
-      this.drawCircles(sketch);
+      this.drawTriangles(sketch);
 
       sketch.scale(1, -1);
     },
@@ -45,30 +45,36 @@ export default {
       this.pointList.push(new Vector(e.offsetX, e.offsetY));
 
       if (this.pointList.length > 2) {
-        this.circles = this.searchCircles(this.pointList.points);
+        this.triangles = this.searchTriangles(this.pointList.points);
       }
     },
 
     drawPoints(sketch) {
+      sketch.fill(255, 255, 255);
+
       this.pointList.points.forEach((point) => {
-        sketch.fill(255, 255, 255);
         sketch.ellipse(point.x, point.y, 5);
       });
     },
-    drawCircles(sketch) {
-      if (this.circles.length) {
-        sketch.stroke(0, 255, 255);
-        sketch.strokeWeight(1);
-        sketch.noFill();
+    drawTriangles(sketch) {
+      const { points } = this.pointList;
 
-        this.circles.forEach((circle) => {
-          sketch.circle(circle.center.x, circle.center.y, circle.radius * 2);
+      sketch.stroke(255);
+      sketch.strokeWeight(1);
+      sketch.noFill();
+
+      this.triangles.forEach((triangle) => {
+        sketch.beginShape();
+        triangle.forEach((v) => {
+          sketch.vertex(points[v].x, points[v].y);
         });
-      }
+        sketch.vertex(points[triangle[0]].x, points[triangle[0]].y);
+        sketch.endShape();
+      });
     },
 
-    searchCircles(points) {
-      const circles = [];
+    searchTriangles(points) {
+      const triangles = [];
 
       for (let i = 0; i < points.length; i++) {
         for (let j = i + 1; j < points.length; j++) {
@@ -76,15 +82,16 @@ export default {
             const circle = CircleStatic.circumscribe(points[i], points[j], points[k]);
 
             const otherPoints = points.filter((_, l) => ![i, j, k].includes(l));
+            const isUnique = !circle.containsSome(otherPoints);
 
-            if (!circle.containsSome(otherPoints)) {
-              circles.push(circle);
+            if (isUnique) {
+              triangles.push([i, j, k]);
             }
           }
         }
       }
 
-      return circles;
+      return triangles;
     },
   },
 };

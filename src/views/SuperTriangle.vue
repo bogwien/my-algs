@@ -2,7 +2,7 @@
   <v-container>
     <h1>Super Triangle</h1>
 
-    <super-triangle-sketch class="mt-4"></super-triangle-sketch>
+    <super-triangle-sketch class="mt-4" />
   </v-container>
 </template>
 

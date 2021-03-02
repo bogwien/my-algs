@@ -2,7 +2,7 @@
   <v-container>
     <h1>Circumscribed Circle</h1>
 
-    <circumscribed-circle-sketch class="mt-4"></circumscribed-circle-sketch>
+    <circumscribed-circle-sketch class="mt-4" />
   </v-container>
 </template>
 
