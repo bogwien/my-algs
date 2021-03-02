@@ -1,5 +1,6 @@
 import Triangle from '@/models/Triangle';
 import Vector from '@/models/Vector';
+import VectorStatic from '@/models/static/VectorStatic';
 
 export default class Circle {
   constructor(center, radius) {
@@ -18,5 +19,13 @@ export default class Circle {
       new Vector(x + a / 2, y - r),
       new Vector(x - a / 2, y - r),
     );
+  }
+
+  contains(vector) {
+    return VectorStatic.distance(this.center, vector) <= this.radius;
+  }
+
+  containsSome(vectors) {
+    return vectors.some((point) => this.contains(point));
   }
 }

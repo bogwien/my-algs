@@ -1,5 +1,5 @@
-import Vector from '@/models/Vector';
 import Circle from '@/models/Circle';
+import VectorStatic from '@/models/static/VectorStatic';
 
 export default class Rectangle {
   constructor(A, B, C, D) {
@@ -7,9 +7,9 @@ export default class Rectangle {
   }
 
   fitIntoCircle() {
-    const center = Vector.between(this.points[0], this.points[2]);
+    const center = VectorStatic.between(this.points[0], this.points[2]);
 
-    const radius = Vector.distance(center, this.points[0]);
+    const radius = VectorStatic.distance(center, this.points[0]);
 
     return new Circle(center, radius);
   }
