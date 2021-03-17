@@ -1,6 +1,8 @@
 export default class Ant {
-  constructor(routes) {
+  constructor(routes, alfa, beta) {
     this.routes = routes;
+    this.alfa = alfa;
+    this.beta = beta;
   }
 
   walk(startPoint) {
@@ -28,25 +30,31 @@ export default class Ant {
     return this.step(endPoint, points, route);
   }
 
+  calcProbability(route) {
+    const pheromones = this.alfa === 1 ? route.pheromones : (route.pheromones ** this.alfa);
+    const length = this.beta === 1 ? (1 / route.length) : (1 / (route.length ** this.beta));
+
+    return pheromones * length;
+  }
+
   pickEndPoint(point, points) {
-    const total = points.reduce((sum, p) => {
+    const probs = points.map((p) => {
       const point1 = Math.min(point, p);
       const point2 = Math.max(point, p);
 
-      return sum + this.routes[point1][point2].probability;
-    }, 0);
+      return this.calcProbability(this.routes[point1][point2]);
+    });
+
+    const total = points.reduce((sum, _, i) => sum + probs[i], 0);
 
     let rand = Math.random() * total;
 
     for (let i = 0; i < points.length; i++) {
-      const point1 = Math.min(point, points[i]);
-      const point2 = Math.max(point, points[i]);
-
-      if (rand <= this.routes[point1][point2].probability) {
+      if (rand <= probs[i]) {
         return points[i];
       }
 
-      rand -= this.routes[point1][point2].probability;
+      rand -= probs[i];
     }
 
     throw new Error('Cannot pick end point');

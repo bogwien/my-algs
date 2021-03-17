@@ -35,7 +35,7 @@
 
 <script>
 import VueP5 from 'vue-p5';
-import AntColonyOptimizationWithTriangulation from '@/models/AntColonyOptimization/Optimization';
+import AntColonyOptimization from '@/models/AntColonyOptimization/Optimization';
 import VectorStatic from '@/models/static/VectorStatic';
 
 export default {
@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     model() {
-      return new AntColonyOptimizationWithTriangulation(
+      return new AntColonyOptimization(
         this.points,
         this.antsNum,
         this.alfa,
@@ -80,10 +80,6 @@ export default {
       sketch.strokeWeight(1);
       sketch.text(Math.round(sketch.frameRate()), 3, 12);
 
-      sketch.noStroke();
-
-      this.drawPoints(sketch);
-
       let route;
       try {
         route = this.model.tick();
@@ -94,6 +90,9 @@ export default {
       }
 
       this.drawRoute(sketch, route);
+      sketch.noStroke();
+
+      this.drawPoints(sketch);
 
       sketch.scale(1, -1);
     },
@@ -109,18 +108,6 @@ export default {
       sketch.noFill();
       sketch.strokeWeight(3);
 
-      const maxProbability = this.model.routes.reduce((m, r) => {
-        const max = Math.max(...r.filter((n) => !!n).map((n) => n.probability));
-
-        return Math.max(m, max);
-      }, 0);
-
-      const minProbability = this.model.routes.reduce((m, r) => {
-        const min = Math.min(...r.filter((n) => !!n).map((n) => n.probability));
-
-        return Math.min(m, min);
-      }, Infinity);
-
       route.points.forEach((p, i, array) => {
         if (i === 0) {
           return;
@@ -129,10 +116,7 @@ export default {
         const point1 = Math.min(array[i - 1], p);
         const point2 = Math.max(array[i - 1], p);
 
-        const current = this.model.routes[point1][point2];
-        const weight = (maxProbability - current.probability) / (maxProbability - minProbability);
-
-        sketch.stroke(255, Math.round(155 * weight) + 100, Math.round(100 * weight) + 155);
+        sketch.stroke(200);
         sketch.line(
           this.points[point1].x,
           this.points[point1].y,

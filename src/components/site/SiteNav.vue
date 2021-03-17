@@ -45,14 +45,6 @@
 
           <v-list-item-title>Ant Colony Optimization</v-list-item-title>
         </v-list-item>
-
-        <v-list-item :to="{name: 'AntColonyOptimizationWithTriangulation'}" exact>
-          <v-list-item-icon>
-            <v-icon>mdi-recycle</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-title>Ant Colony Optimization With Triangulation</v-list-item-title>
-        </v-list-item>
       </v-list-item-group>
     </v-list>
   </v-navigation-drawer>
