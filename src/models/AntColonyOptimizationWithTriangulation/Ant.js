@@ -4,11 +4,13 @@ export default class Ant {
   }
 
   walk(startPoint) {
-    const points = this.routes.map((_, i) => i);
+    const points = this.routes.map((_, j) => j);
 
     const route = this.step(startPoint, points);
 
-    route.push(startPoint);
+    if (this.routes[route[route.length - 1]].some((r) => r.point === startPoint)) {
+      route.push(startPoint);
+    }
 
     return route;
   }
@@ -25,28 +27,28 @@ export default class Ant {
 
     const endPoint = this.pickEndPoint(startPoint, points);
 
+    if (!endPoint) {
+      return route;
+    }
+
     return this.step(endPoint, points, route);
   }
 
   pickEndPoint(point, points) {
-    const total = points.reduce((sum, p) => {
-      const point1 = Math.min(point, p);
-      const point2 = Math.max(point, p);
+    const neighbors = this.routes[point].filter((n) => points.includes(n.point));
+    if (!neighbors.length) {
+      return null;
+    }
 
-      return sum + this.routes[point1][point2].probability;
-    }, 0);
-
+    const total = neighbors.reduce((sum, n) => sum + n.pheromones, 0);
     let rand = Math.random() * total;
 
-    for (let i = 0; i < points.length; i++) {
-      const point1 = Math.min(point, points[i]);
-      const point2 = Math.max(point, points[i]);
-
-      if (rand < this.routes[point1][point2].probability) {
-        return points[i];
+    for (let i = 0; i < neighbors.length; i++) {
+      if (rand < neighbors[i].pheromones) {
+        return neighbors[i].point;
       }
 
-      rand -= this.routes[point1][point2].probability;
+      rand -= neighbors[i].pheromones;
     }
 
     throw new Error('Cannot pick end point');
