@@ -4,6 +4,8 @@ import Home from '@/views/Home.vue';
 import SuperTriangle from '@/views/SuperTriangle.vue';
 import CircumscribedCircle from '@/views/CircumscribedCircle.vue';
 import DelaunayTriangulation from '@/views/DelaunayTriangulation.vue';
+import AntColonyOptimization from '@/views/AntColonyOptimization.vue';
+import AntColonyOptimizationWithTriangulation from '@/views/AntColonyOptimizationWithTriangulation.vue';
 
 Vue.use(VueRouter);
 
@@ -27,6 +29,16 @@ const routes = [
     path: '/delaunay-triangulation',
     name: 'DelaunayTriangulation',
     component: DelaunayTriangulation,
+  },
+  {
+    path: '/aco',
+    name: 'AntColonyOptimization',
+    component: AntColonyOptimization,
+  },
+  {
+    path: '/aco-tr',
+    name: 'AntColonyOptimizationWithTriangulation',
+    component: AntColonyOptimizationWithTriangulation,
   },
 ];
 

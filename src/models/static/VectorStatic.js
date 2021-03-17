@@ -33,4 +33,11 @@ export default class VectorStatic {
 
     return mult.x + mult.y;
   }
+
+  static rand(maxX, maxY) {
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    return new Vector(x, y);
+  }
 }
